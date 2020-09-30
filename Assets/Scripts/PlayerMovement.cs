@@ -6,8 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
     public int score = 4;
     public int highscore = 8;
-    public float location;
-    public float loc2 = 1.5f;
     public int speed = 10;
     public float xRange = 5.85f;
     public float yRange = 4.4f;
@@ -44,6 +42,18 @@ public class PlayerMovement : MonoBehaviour
 
         transform.Translate(movement * speed * Time.deltaTime);     
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        //if tagged as "Blocky"...
+        if (collision.gameObject.tag == "Blocky")
+        {
+            Debug.Log("hit blocky");
+        }
+        //if tagged as "Puck"...
+
+    }
+
     private void LateUpdate()
     {
         //keep player in bounds
@@ -67,4 +77,6 @@ public class PlayerMovement : MonoBehaviour
             transform.position = new Vector2(transform.position.x, -yRange);
         }
     }
+
+    
 }

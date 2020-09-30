@@ -153,8 +153,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 4
   highscore: 8
-  location: 0
-  loc2: 1.5
   speed: 10
   xRange: 5.9
   yRange: 4.4
