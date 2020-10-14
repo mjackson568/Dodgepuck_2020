@@ -12,7 +12,7 @@ public class PuckController : MonoBehaviour
     void Start()
     {
         moveDirection = direction[Random.Range(0,4)];
-        Debug.Log(moveDirection);
+        //Debug.Log(moveDirection);
     }
 
     // Update is called once per frame
@@ -40,6 +40,14 @@ public class PuckController : MonoBehaviour
         {
             //move left
             transform.Translate(transform.right * -puckSpeed * Time.deltaTime);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Wall")
+        {
+            puckSpeed = -puckSpeed;
         }
     }
 

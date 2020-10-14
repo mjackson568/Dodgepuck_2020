@@ -1,28 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
-{
-    public int score = 4;
-    public int highscore = 8;
+{    
     public int speed = 10;
     public float xRange = 5.85f;
     public float yRange = 4.4f;
     public GameObject Puck;
     public GameObject Blocky;
-    
+    public int Score;
+    public GameObject scoreText;
+    public GameObject gameOverText;
+
     // Start is called before the first frame update
     void Start()
     {
         //function: 
         SpawnPuck();
-        SpawnBlocky();
+        SpawnBlocky();       
     }
 
     void SpawnPuck()
     {
-        Debug.Log(Random.Range(1.0f,10.0f));
         Instantiate(Puck, new Vector2(Random.Range(-5.85f,5.85f),Random.Range(-4.4f,4.4f)), Quaternion.identity);
     }
 
@@ -43,16 +44,30 @@ public class PlayerMovement : MonoBehaviour
         transform.Translate(movement * speed * Time.deltaTime);     
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         //if tagged as "Blocky"...
         if (collision.gameObject.tag == "Blocky")
-        {
-            Debug.Log("hit blocky");
+        {           
+            Destroy(collision.gameObject);
+            SpawnBlocky();
+            SpawnPuck();
+            scoreText.GetComponent<ScoreKeeper>().UpdateScore();
         }
         //if tagged as "Puck"...
-
+        if (collision.gameObject.tag == "Puck")
+        {
+            gameOverText.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
+
+    public void Reset()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1;
+    }
+
 
     private void LateUpdate()
     {
