@@ -68,7 +68,6 @@ public class PlayerMovement : MonoBehaviour
         Time.timeScale = 1;
     }
 
-
     private void LateUpdate()
     {
         //keep player in bounds
@@ -92,6 +91,4 @@ public class PlayerMovement : MonoBehaviour
             transform.position = new Vector2(transform.position.x, -yRange);
         }
     }
-
-    
 }
